@@ -3,6 +3,7 @@ Sipariş Giriş Ekranı
 
 
 
+
 http://localhost:52716/index.html ile anasayfaya giriş yapılır.
 
 Ara tuşuna basıldığında müşteri numarası database de kayıtlı ise bilgiler getirilecek.
