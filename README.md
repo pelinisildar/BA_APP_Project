@@ -1,6 +1,7 @@
 # BA_APP_Project
 Sipariş Giriş Ekranı
 
+![app_screen](https://user-images.githubusercontent.com/55616747/77258341-1530e000-6c8b-11ea-8204-2cf4f769e01f.PNG)
 
 
 
