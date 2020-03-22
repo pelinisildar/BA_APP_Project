@@ -1,0 +1,26 @@
+{
+  "version": "1.0",
+  "defaultProvider": "cdnjs",
+  "libraries": [
+    {
+      "library": "jquery@3.4.1",
+      "provider": "cdnjs",
+      "destination": "wwwroot/lib/jquery"
+    },
+    {
+      "library": "twitter-bootstrap@4.4.1",
+      "provider": "cdnjs",
+      "destination": "wwwroot/lib/bootstrap"
+    },
+    {
+      "library": "jquery.mask@1.14.16",
+      "provider": "cdnjs",
+      "destination": "wwwroot/lib/jquery-mask"
+    },
+    {
+      "library": "limonte-sweetalert2@8.11.8",
+      "provider": "cdnjs",
+      "destination": "wwwroot/lib/sweetalert2"
+    }
+  ]
+}

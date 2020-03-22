@@ -1,0 +1,493 @@
+﻿
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Sipariş Ekranı</title>
+    <link href="lib/bootstrap/css/bootstrap.css" rel="stylesheet" />
+    <link href="css/custom.css" rel="stylesheet" />
+    <link href="lib/sweetalert2/sweetalert2.css" rel="stylesheet" />
+</head>
+<body>
+    <div>
+
+        <form>
+            <fieldset class="groupbox-border">
+                <legend class="groupbox-border">Müşteri ve Sipariş Bilgileri</legend>
+                <div class="form-group row">
+                    <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm">Müşteri Numarası:</label>
+                    <div class="col-sm-2">
+                        <input type="text" class="form-control form-control-sm" id="customerno" placeholder="" required>
+                    </div>
+                    <div class="col-sm-4">
+                        <button type="button" id="customersearch" class="mb-2 ">Ara</button>
+                    </div>
+
+                    <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm">Sipariş No:</label>
+                    <div class="col-sm-2">
+                        <input type="text" class="form-control form-control-sm" id="orderno" placeholder="">
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm">Müşteri Adı:</label>
+                    <div class="col-sm-2">
+                        <input type="text" class="form-control form-control-sm" id="customername" placeholder="">
+                    </div>
+
+                    <div class="col-sm-4">
+
+                    </div>
+
+                    <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm">Sipariş Tarihi:</label>
+                    <div class="col-sm-2">
+                        <input type="text" class="form-control form-control-sm" id="orderdate" placeholder="">
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm">Müşteri Soyadı:</label>
+                    <div class="col-sm-2">
+                        <input type="text" class="form-control form-control-sm" id="customersurname" placeholder="">
+                    </div>
+
+
+                </div>
+            </fieldset>
+        </form>
+
+
+        <div class="form-group">
+            <button type="button" class="btn btn-outline-dark float-right mr-3" id="add">
+                <i class="fas fa-save"></i>
+                Sipariş Kalemi Ekle
+            </button>
+        </div>
+
+        <br />
+        <br />
+
+    </div>
+
+
+    <div class="row">
+        <div class="col">
+            <fieldset class="groupbox-border rounded shadow-sm">
+                <legend class="groupbox-border">Sipariş Kalemleri</legend>
+                <div class="row">
+                    <div class="col coldiv">
+
+                        <div class="table-responsive">
+                            <table class="table" id="example">
+                                <thead>
+                                    <tr>
+                                        <th>Ürün<span hidden id="custom"></span></th>
+                                        <th>Adet</th>
+                                        <th>İndirim Tutarı</th>
+                                        <th>Depo</th>
+                                        <th>Toplam Fiyat</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="tbody">
+                                    <tr>
+                                        <td><select class="urundetayinput" id="selectcatp"></select></td>
+
+                                        <td><input type="text" id="count" /></td>
+
+                                        <td><input type="text" id="discount" /></td>
+
+                                        <td><select class="depoinput" id="selectdepo"></select></td>
+
+                                        <td><input type="text" id="total" /></td>
+                                    </tr>
+                                    <tr class="tr1"></tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+            </fieldset>
+
+            <div class="form-group">
+                <button class="btn btn-outline-dark float-right mr-3" id="save">
+                    <i class="fas fa-save"></i>
+                    Kaydet
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!--<script src="lib/bootstrap/js/bootstrap.min.js"></script>-->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <!--<script src="lib/jquery/jquery.min.js"></script>-->
+    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <!--<script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>-->
+    <script src="https://cdn.datatables.net/buttons/1.5.1/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.flash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.print.min.js"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <!--<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>-->
+    <script src="lib/sweetalert2/sweetalert2.min.js"></script>
+</body>
+</html>
+
+
+<script>
+
+
+    $(document).ready(function () {       
+
+        //Ürünleri ve depoları databaseden getiren kısım
+
+        $.getJSON("http://localhost:52716/api/product/", function (data) {
+            $("#selectcatp").append("<option value='' hidden>Ürün seçiniz</option>")
+            $.map(data, function (item) {
+                $("#selectcatp").append("<option class='selectcatp' id=" + item.id + ">" + item.productName + "</option>")
+            })
+        })
+
+        $.getJSON("http://localhost:52716/api/store/", function (data) {
+            $("#selectdepo").append("<option value='' hidden>Depo seçiniz</option>")
+            $.map(data, function (item) {
+                $("#selectdepo").append("<option class='selectdepo' id=" + item.id + ">" + item.storeName + "</option>")
+            })
+        })
+
+        //Ara tuşuna basıldığında müşteri numarası database de kayıtlı ise bilgileri getiren kod
+
+        $(document).on("click", "#customersearch", function () {
+            var aranacak = $("#customerno").val();
+
+            if ($("#customerno").val() != "") {
+
+                $.ajax({
+                    url: "http://localhost:52716/api/customer/" + aranacak,
+                    type: 'GET',
+                    success: function (data) {
+                        $("#customername").val(data.customerName)
+                        $("#orderno").val(data.orderNumber)
+                        $("#orderdate").val(data.orderDate)
+                        $("#customersurname").val(data.customerSurname)
+
+                    },
+                    error: function (err) {
+                        $("#customername").val("");
+                        $("#orderno").val("");
+                        $("#orderdate").val("");
+                        $("#customersurname").val("");
+                        Swal.fire({
+                            type: 'error',
+                            text: 'Böyle bir kayıt bulunmamaktadır!',
+                            confirmButtonText: 'TAMAM'
+                        })
+                    }
+                })
+            }
+            else {
+                Swal.fire({
+                    type: 'info',
+                    text: 'Müşteri numarası boş geçilemez',
+                    confirmButtonText: 'TAMAM'
+                })
+            }
+
+
+        })
+
+
+
+
+
+
+        //Sipariş kalemi ekle ye tıklandığı zaman eğer müşteri numarası databasede kayıtlı değilse girilen bilgileri database gönderen kısım
+
+        var customerid = 0;
+
+        $(document).on("click", "#add", function () {
+
+            if ($("#customerno").val() == "" || $("#customername").val() == "" || $("#orderno").val() == "" || $("#customersurname").val() == "") {
+                Swal.fire({
+                    type: 'info',
+                    text: 'Boş bırakılan alanları doldurun. Sipariş tarihi zorunlu bir alan değildir.',
+                    confirmButtonText: 'TAMAM'
+                })
+                return;
+            }
+
+            var customer = new Object();
+
+            customer.CustomerNumber = $("#customerno").val();
+            customer.CustomerName = $("#customername").val();
+            customer.OrderNumber = $("#orderno").val();
+            customer.OrderDate = $("#orderdate").val();
+            customer.CustomerSurname = $("#customersurname").val();
+
+            $.ajax({
+                url: "http://localhost:52716/api/customer/",
+                type: "POST",
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(customer),
+                success: function (data) {
+                    customerid = data.id;
+                    Swal.fire({
+                        type: 'success',
+                        text: 'Kayıt Başarılı!',
+                        confirmButtonText: 'TAMAM'
+                    })
+
+                },
+                error: function (err) {
+                    Swal.fire({
+                        type: 'error',
+                        text: 'Böyle bir kayıt bulunmaktadır.',
+                        confirmButtonText: 'TAMAM'
+                    })
+                }
+            })
+        })
+
+        //Ürün dropdownundaki price ın getirildiği kısım
+
+        var price = 0;
+        var idselectcatp = 0;
+        $(document).on("change", "#selectcatp", function () {
+
+            idselectcatp = $(this).children(":selected").attr("id");
+
+            $.getJSON("http://localhost:52716/api/product/" + idselectcatp, function (data) {
+                price = data.price;
+            });
+
+
+        })
+
+        //Table girilen değerlerin alındığı kısım
+
+        var selectcatpText = "";
+        $(document).on("change", "#selectcatp", function () {
+            selectcatpText = this.options[this.selectedIndex].text;
+        })
+
+        var counttext = "";
+        $("#count").on("change keyup", function () {
+            counttext = $("#count").val();
+        })
+
+        var discounttext = "";
+        $("#discount").on("change keyup", function () {
+
+            discounttext = $("#discount").val();
+        })
+
+        var selectdepo = "";
+        $(document).on("change", "#selectdepo", function () {
+
+            selectdepo = this.options[this.selectedIndex].text;
+
+        })
+
+
+        //Total price ın hesaplandığı kısım
+
+        var total = 0;
+
+        $("#discount").on("change keyup", function () {
+            $("#count").on("change keyup", function () {
+                total = (price * (1 - ($("#discount").val() / 100))) * $("#count").val();
+                $("#total").val(total);
+            })
+        })
+
+        $("#count").on("change keyup", function () {
+            $("#discount").on("change keyup", function () {
+                total = (price * (1 - ($("#discount").val() / 100))) * $("#count").val();
+                $("#total").val(total);
+
+
+
+            })
+        })
+
+
+
+
+
+
+        //$(document).on("change keyup", "#selectcatp", function () {
+        //    $(document).on("change keyup", "#selectdepo", function () {
+
+        //        if ($("#selectcatp option").attr("select") && $("#selectdepo option").attr("select")) {
+        //            alert("ffdf")
+        //        }
+
+        //        $(".tbody").append("<tr><td>" + selectcatpText + "</td><td>" + counttext + "</td><td>" + discounttext + "</td><td>" + selectdepo + "</td><td>" + total + "</td></tr>");
+        //        $("#discount").val("");
+        //        $("#count").val("");
+        //        $("#total").val("");
+        //        document.getElementById("selectcatp").selectedIndex = -1;
+        //        document.getElementById("selectdepo").selectedIndex = -1;
+        //    })
+        //})
+
+
+
+        var idselectdepo = 0;
+        $(document).on("change", "#selectdepo", function () {
+
+            idselectdepo = $(this).children(":selected").attr("id");
+            console.log(idselectdepo)
+        })
+
+        //Table a eklenen her değerin satıra append edilmesi
+
+        $(document).on("change", "select", function () {
+
+            if ($("#count").val() != "" && $("#discount").val() != "") {
+                $(".tbody").append("<tr><td class='cproduct' id='" + idselectcatp + "'>" + selectcatpText + "</td><td class='ccount'>" + counttext + "</td><td class='cdiscount'>" + discounttext + "</td><td class='cstore' id='" + idselectdepo + "'>" + selectdepo + "</td><td class='countable'>" + total + "</td></tr>");
+
+
+                $("#discount").val("");
+                $("#count").val("");
+                $("#total").val("");
+                document.getElementById("selectcatp").selectedIndex = -1;
+                document.getElementById("selectdepo").selectedIndex = -1;
+
+            }
+        })
+
+        //Total price sütununun tüm değerlerinin toplamının append edildiği kısım
+
+        $(document).on("change", "#selectdepo", function () {
+            var cls = document.getElementById("example").getElementsByTagName("td");
+            var sum = 0;
+            for (var i = 0; i < cls.length; i++) {
+                if (cls[i].className == "countable") {
+                    sum += isNaN(cls[i].innerHTML) ? 0 : parseInt(cls[i].innerHTML);
+                }
+            }
+            $(".coldiv label").empty();
+            $(".coldiv").append('<label class="float-right" id="toplamlab">Toplam:<span> ' + sum + ' TL</span></label>');
+
+        })
+
+        $(document).on("change", "#selectcatp", function () {
+            var cls = document.getElementById("example").getElementsByTagName("td");
+            var sum = 0;
+            for (var i = 0; i < cls.length; i++) {
+                if (cls[i].className == "countable") {
+                    sum += isNaN(cls[i].innerHTML) ? 0 : parseInt(cls[i].innerHTML);
+                }
+            }
+            $(".coldiv label").empty();
+            $(".coldiv").append('<label class="float-right" id="toplamlab">Toplam:<span> ' + sum + ' TL</span></label>');
+
+        })
+
+
+
+        //Kaydet tıklandığı zaman table da olan değerlerin database gönderilmesini sağlar.
+
+        $(document).on("click", "#save", function () {
+
+            var order = new Object();
+
+            order.ProductID = idselectcatp;
+            order.StoreID = idselectdepo;
+            order.Discount = discounttext;
+            order.CustomerID = customerid;
+            order.Count = counttext;
+            order.TotalPrice = total;         
+
+            $.ajax({
+                url: "http://localhost:52716/api/order/",
+                type: "POST",
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(order),
+                success: function (data) {
+                    console.log(data);
+                    Swal.fire({
+                        type: 'success',
+                        text: 'Kayıt Başarılı!',
+                        confirmButtonText: 'TAMAM'
+                    })
+
+                },
+                error: function (err) {
+                    Swal.fire({
+                        type: 'error',
+                        text: 'Hata meydana geldi!',
+                        confirmButtonText: 'TAMAM'
+                    })
+
+                }
+            })
+
+
+        })
+
+
+        //Row ların her birinin databse gönderilmesi için her satırda dönüp onları bir array içine push etmemiz gerekiyor. Fakat bu kısmı yapamadım. Son eklenen kayıt sadece database gönderiliyor. Ama kod bu şekilde ..
+           
+
+            //var order_details = [];
+            //$(".cproduct").each(function () {
+            //    order_details.push(this.text);
+            //})
+            //$(".cstore").each(function () {
+            //    order_details.push(this.text);
+            //})
+            //$(".ccount").each(function () {
+            //    order_details.push(this.text);
+            //})
+            //$(".cdiscount").each(function () {
+            //    order_details.push(this.text);
+            //})
+            //$(".countable").each(function () {
+            //    order_details.push(this.text);
+            //})
+
+            //$.ajax({
+
+            //    url: "http://localhost:52716/api/order/",
+            //    type: "POST",
+            //    data: {
+            //        ProductID:idselectcatp,
+            //        StoreID : idselectdepo,
+            //        Discount:$(".cdiscount").text,
+            //        CustomerID:customerid,
+            //        Count:$(".ccount").text,
+            //        TotalPrice:$(".countable").text
+            //    },
+            //    success: function (data) {
+            //        console.log(data);
+            //        Swal.fire({
+            //            type: 'success',
+            //            text: 'Kayıt Başarılı!',
+            //            confirmButtonText: 'TAMAM'
+            //        })
+
+            //    },
+            //    error: function (err) {
+            //        Swal.fire({
+            //            type: 'error',
+            //            text: 'Hata meydana geldi!',
+            //            confirmButtonText: 'TAMAM'
+            //        })
+
+            //    }
+            //})
+
+        
+
+    })
+
+
+</script>
